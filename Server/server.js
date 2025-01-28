@@ -12,7 +12,7 @@ import resultRoutes from "./routes/resultRoutes.js";
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://ielts-lts.vercel.app",
   credentials: true,
 };
 app.use(cors(corsOptions));
