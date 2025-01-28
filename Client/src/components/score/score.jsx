@@ -30,7 +30,7 @@ const Score = () => {
         setError(response.data.message);
       }
     } catch (err) {
-      setError("Error fetching data. Please try again later.");
+      setError("Couldn't find the user. Please enter details again");
     }
   };
 
