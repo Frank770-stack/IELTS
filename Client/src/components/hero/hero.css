@@ -27,7 +27,7 @@
   .hero-title {
     font-size: 2rem; /* Reduce title size on smaller screens */
     text-align: left; /* Align title to the left on mobile */
-    margin-left: -190px; /* Add left margin for spacing */
+    margin-left: 50px; /* Add left margin for spacing */
   }
 
   .hero-paragraph {
