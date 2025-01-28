@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../lib/axios";
 import "./score.css";
 
 const Score = () => {
@@ -17,7 +17,7 @@ const Score = () => {
 
     try {
       // Send the student details to the backend
-      const response = await axios.post("http://localhost:5000/api/score", {
+      const response = await axiosInstance.post("/score", {
         name,
         idNumber,
         studentNumber,
