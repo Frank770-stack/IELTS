@@ -1,0 +1,50 @@
+/* Navbar styles */
+.navbar {
+  background-color: #000066; /* Navy blue background */
+  color: white; /* White text */
+  display: flex;
+  justify-content: flex-start; /* Align content to the left */
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+}
+
+.text-container {
+  text-align: left;
+  margin-right: 10px; /* Spacing between the text and IELTS */
+}
+
+.british,
+.council {
+  font-size: 2rem; /* Adjust font size as needed */
+}
+
+.ielts {
+  font-size: 2rem; /* Same size as the combined British and Council */
+  font-weight: bold; /* Make IELTS bold */
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-direction: row; /* Keep items in a row on smaller screens */
+    align-items: center;
+  }
+
+  .british {
+    font-size: 1rem;
+  }
+
+  .council {
+    font-size: 1rem;
+  }
+
+  .ielts {
+    font-size: 1.5rem;
+    font-weight: bold; /* Keep IELTS bold on mobile */
+    margin-left: 10px; /* Add space between the words */
+  }
+}

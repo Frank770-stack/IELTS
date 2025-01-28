@@ -1,0 +1,149 @@
+/* General Container Styles */
+.auth-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Heading Styles */
+.auth-heading {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Form Styles */
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* General spacing between fields */
+}
+
+/* Input Group Styles */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px; /* Space between input fields */
+}
+
+label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #2e8b57;
+  box-shadow: 0 0 6px rgba(46, 139, 87, 0.5);
+  outline: none;
+}
+
+/* Button Styles */
+.auth-btn {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #00008b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-btn:hover {
+  background-color: #256d44;
+  transform: translateY(-2px);
+}
+
+.auth-btn:active {
+  background-color: #1f5d3f;
+  transform: translateY(0);
+}
+
+.auth-btn:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Results Styling */
+.results {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.results h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.results p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 768px) {
+  .auth-container {
+    width: 90%;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .auth-heading {
+    font-size: 20px;
+  }
+
+  .input-group {
+    margin-bottom: 20px; /* Increased spacing for smaller screens */
+  }
+
+  input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .auth-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .toggle-text {
+    font-size: 13px;
+  }
+}
