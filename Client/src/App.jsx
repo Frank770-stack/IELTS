@@ -13,6 +13,7 @@ import RecentResults from "./components/recent/recentresults.jsx";
 import Score from "./components/score/score.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import "./App.css";
+
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
