@@ -1,3 +1,4 @@
+// components/Auth.jsx
 import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthstore.js";
 import { useNavigate } from "react-router-dom";
@@ -5,8 +6,8 @@ import toast from "react-hot-toast";
 import "./CSS/auth.css";
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
-  const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
+  const [isLogin, setIsLogin] = useState(true); // Toggle between login and signup
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -32,24 +33,17 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const success = validateForm();
-
     if (success === true) {
       if (isLogin) {
-        // Handle login
         login({ email: formData.email, password: formData.password })
           .then((success) => {
             if (success) {
-              // Navigate to homepage after successful login
-              navigate("/"); // This will redirect to the homepage
+              navigate("/"); // Redirect on success
             }
           })
-          .catch((error) => {
-            console.error("Login failed:", error);
-          });
+          .catch((error) => console.error("Login failed:", error));
       } else {
-        // Handle signup
         signup(formData).then(() => navigate("/"));
       }
     }

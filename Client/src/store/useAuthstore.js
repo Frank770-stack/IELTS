@@ -1,3 +1,4 @@
+// store/useAuthStore.js
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
 import { toast } from "react-toastify";
@@ -14,7 +15,7 @@ export const useAuthStore = create((set) => ({
       const res = await axiosInstance.get("/auth/check");
       set({ authUser: res.data });
     } catch (error) {
-      console.log("Error in checkAuth:", error);
+      console.log("Error in checkAuth:", error.response?.data || error.message);
       set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
@@ -24,7 +25,9 @@ export const useAuthStore = create((set) => ({
   signup: async (data) => {
     set({ isSigningUp: true });
     try {
-      const res = await axiosInstance.post("/auth/signup", data);
+      const res = await axiosInstance.post("/auth/signup", data, {
+        headers: { "Content-Type": "application/json" },
+      });
       if (res.status === 201) {
         set({ authUser: res.data });
         toast.success("Account created successfully");
@@ -43,13 +46,16 @@ export const useAuthStore = create((set) => ({
   login: async ({ email, password }) => {
     set({ isLoggingIn: true });
     try {
-      const res = await axiosInstance.post("/auth/login", { email, password });
+      const res = await axiosInstance.post(
+        "/auth/login",
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
+      );
       if (res.status === 200) {
-        // Store the token in localStorage
-        localStorage.setItem("token", res.data.token);
+        // No need to store token manually; it's set as a cookie on the backend
         set({ authUser: res.data });
         toast.success("Login successful");
-        return true; // Indicate successful login
+        return true; // Successful login
       } else {
         toast.error("Login failed, please try again.");
         return false;
@@ -70,7 +76,7 @@ export const useAuthStore = create((set) => ({
       set({ authUser: null });
       toast.success("Logged out successfully");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Logout failed");
     }
   },
 }));

@@ -1,3 +1,4 @@
+// controllers/authController.js
 import { generateToken } from "../config/generateToken.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
@@ -5,47 +6,31 @@ import bcrypt from "bcryptjs";
 // Signup Controller
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
-
   try {
-    // Validate input fields
     if (!fullName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
-
     if (password.length < 6) {
       return res
         .status(400)
         .json({ message: "Password must be at least 6 characters" });
     }
-
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     }
-
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Create new user
-    const newUser = new User({
-      fullName,
-      email,
-      password: hashedPassword,
-    });
-
-    // Save user and generate token
+    const newUser = new User({ fullName, email, password: hashedPassword });
     await newUser.save();
-    const token = generateToken(newUser._id, res);
 
-    // Respond with user data
+    // Set JWT cookie
+    generateToken(newUser._id, res);
+
     res.status(201).json({
       _id: newUser._id,
       fullName: newUser.fullName,
       email: newUser.email,
-      // profilePic: newUser.profilePic || null,
-      token,
     });
   } catch (error) {
     console.error("Error in signup controller:", error.message);
@@ -56,26 +41,19 @@ export const signup = async (req, res) => {
 // Login Controller
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
   try {
-    console.log("Login attempt:", { email, password });
-
-    // Check if user exists
+    console.log("Login request body:", req.body);
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
-    // Check password
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
-    // Generate token and set it as a cookie
+    // Set JWT cookie
     generateToken(user._id, res);
 
-    // Respond with user data
     res.status(200).json({
       _id: user._id,
       fullName: user.fullName,
@@ -90,7 +68,7 @@ export const login = async (req, res) => {
 // Logout Controller
 export const logout = (req, res) => {
   try {
-    res.cookie("jwt", "", { maxAge: 0 }); // Clear the JWT cookie
+    res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.error("Error in logout controller:", error.message);
@@ -101,7 +79,10 @@ export const logout = (req, res) => {
 // Check Authentication Controller
 export const checkAuth = (req, res) => {
   try {
-    res.status(200).json(req.user); // Assuming `req.user` is populated by middleware
+    if (!req.user) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    res.status(200).json(req.user);
   } catch (error) {
     console.error("Error in checkAuth controller:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
