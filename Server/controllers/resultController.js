@@ -97,6 +97,7 @@ export const getStudentScores = async (req, res) => {
         passportNumber: student.passportNumber,
       },
       scores: student.scores,
+      certificateUrl: student.certificateUrl || null, // 👈 ADD THIS
     });
   } catch (error) {
     console.error("Error retrieving student scores:", error);

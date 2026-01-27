@@ -9,6 +9,7 @@ const StudentSchema = new mongoose.Schema(
     centerNumber: { type: String, required: true }, // New field
     nationality: { type: String, required: true }, // New field
     passportNumber: { type: String, required: true }, // New field
+    certificateUrl: { type: String },
     scores: {
       listening: { type: Number, required: true },
       reading: { type: Number, required: true },
@@ -18,7 +19,7 @@ const StudentSchema = new mongoose.Schema(
       CEFR: { type: String, required: true },
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Student = mongoose.model("Student", StudentSchema);

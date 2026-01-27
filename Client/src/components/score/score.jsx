@@ -34,6 +34,12 @@ const Score = () => {
     }
   };
 
+  const handleDownloadCertificate = () => {
+    if (studentDetails?.certificateUrl) {
+      window.open(studentDetails.certificateUrl, "_blank");
+    }
+  };
+
   return (
     <div className="auth-container">
       <h1 className="auth-heading">Check Your Exam Results</h1>
@@ -89,6 +95,15 @@ const Score = () => {
           <p>Speaking: {studentDetails.scores.speaking}</p>
           <p>Overall: {studentDetails.scores.overall}</p>
           <p>CEFR Level: {studentDetails.scores.CEFR}</p>
+
+          {studentDetails.certificateUrl && (
+            <button
+              className="download-btn"
+              onClick={handleDownloadCertificate}
+            >
+              Download Certificate
+            </button>
+          )}
         </div>
       )}
     </div>
